@@ -1,0 +1,22 @@
+site_name: Labvision Wiki
+nav:
+- 介绍: index.md
+- 快速入门:
+    - 安装: demo/install.md
+    - 自动训练: demo/train.md
+    - 可视化: demo/visualize.md
+    - 为自定义数据集添加支持: demo/datasets.md
+    - 设置硬件限制: demo/devices.md
+    - 打包与远程部署: demo/deploy.md
+- 总览:
+    - Labvision: na.md
+    - Labvision.models: na.md
+    - Labvision.datasets: na.md
+    - Labvision.transforms: na.md
+    - Labvision.io: na.md
+    - Labvision.auto: na.md
+    - Labvision.visualize: na.md
+- 关于:
+    - 授权许可: na.md
+    - 更新日志: na.md
+theme: readthedocs
