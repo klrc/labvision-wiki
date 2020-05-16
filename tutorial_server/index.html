@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>远程服务器 - Labvision Wiki</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u8fdc\u7a0b\u670d\u52a1\u5668";
+    var mkdocs_page_input_path = "tutorial_server.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Labvision Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">快速入门</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quickstart</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../tutorial_autocore/">自动训练核</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">远程服务器</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">连接服务器</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">远程执行命令</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">将代码部署至服务器</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">检查你的代码</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">推送至服务器</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">自动重启训练(未实装)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">取回运行结果 (未实装)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vscode-remote">什么时候使用vscode-remote</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#24">网络巨稳/24小时校园网在线</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpu">我没有gpu</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../tutorial_clean/">自动整理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Pytorch扩展支持</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">可视化扩展支持</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">总览</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.auto</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.datasets</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock.visualize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock.local</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock.server</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.functional</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.transforms</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.transforms.basic</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">关于</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">授权许可</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">更新日志</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Labvision Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>快速入门 &raquo;</li>
+        
+      
+    
+    <li>远程服务器</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="_1">远程服务器</h2>
+<p>如果你需要使用远端的GPU训练模型, labvision提供了一些配套的支持.</p>
+<h3 id="_2">连接服务器</h3>
+<p>目前只提供了ssh连接, </p>
+<pre><code class="python">from labvision import dock
+
+server = dock.Server(ip='172.20.46.235', user='username', password='password',
+                     remote_root='/home/sh/Desktop/Research/test-convlstm')
+
+</code></pre>
+
+<h4 id="_3">远程执行命令</h4>
+<p>若有需要, 目前提供了两种方式在服务器上执行远程命令.</p>
+<p>交互式: (和ssh无异)</p>
+<pre><code class="python">server.ssh()  # 执行后会生成ssh终端, 可以直接执行命令
+</code></pre>
+
+<blockquote>
+<p>! 交互式功能目前未实装</p>
+</blockquote>
+<p>内嵌代码: (适合在python脚本中配合使用)</p>
+<pre><code class="python">_ = server('cd home/sh/Desktop/Research')
+stdout, stderr = server('tail -n 50 __cache__/log.yaml')
+print(stdout[-10:0])
+_ = server('rm -r __cache__')
+</code></pre>
+
+<h3 id="_4">将代码部署至服务器</h3>
+<p>(基于sftp和nohup后台执行/重定向)</p>
+<h4 id="_5">检查你的代码</h4>
+<ul>
+<li>看一下所有依赖(pip/conda安装的包不算)是不是都在目标目录内(等下打算部署的文件夹).</li>
+<li>
+<p>目标目录内是否有超大文件.</p>
+<blockquote>
+<p>其实如果必要的话, 超大文件也是可以一起上传的, 亲测2GB文件校园网vpn条件下没有问题.</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="_6">推送至服务器</h4>
+<p>将所有源码都放置在目标目录, 指定目标目录和启动python脚本, 代码会自动运行:</p>
+<pre><code class="python">with server:
+    server.deploy(src='test-convlstm-cmpl', run='run.py', conda_env='dl')
+</code></pre>
+
+<blockquote>
+<p><em>"带上最低限度的生活用品, 准备接受永无止境的劳动改造. "</em></p>
+</blockquote>
+<h4 id="_7">自动重启训练(未实装)</h4>
+<p>如果你的脚本支持中断/重启, 或者你使用的是labvision的自动核, </p>
+<p>那么labvision还可以生成协程以全天候监控服务器, 在资源空闲的时候自动执行训练.</p>
+<p>详情请移步: <a href="">labvision.server.spring_mode</a></p>
+<h4 id="_8">取回运行结果 (未实装)</h4>
+<p>所有的运行结果及系统日志都会保存在你的目标文件夹下 ("target_dir/my-project/xxx.log"),</p>
+<p>通常地, 我们推荐直接取回整个运行完毕的包:</p>
+<pre><code>server.pop(project='home/sh/my-project',local_dir='my-packages')
+</code></pre>
+
+<p>这样, 这个包可以在任何时候被重新push, 或者在你的本机继续运行, 任何日志历史都不会被中断.</p>
+<p>如果你想要只获取某些文件(比如训练好的权重),</p>
+<pre><code>server.fetch('home/sh/my-project/best_epoch.pt',local_dir='builds')
+</code></pre>
+
+<p><code>fetch()</code>将不会清理服务器中的对应文件, 你也可以用来在不删除包的前提下取回包</p>
+<blockquote>
+<p><em>"我终于自由了!"</em></p>
+</blockquote>
+<h3 id="vscode-remote">什么时候使用vscode-remote</h3>
+<p>vscode天下第一, 那么这个包和vscode-remote有何异同?</p>
+<h4 id="24">网络巨稳/24小时校园网在线</h4>
+<p>如果你的网络十分稳定, 或者你只是在服务器上调试几分钟代码, 那么你可以忽略这个包,</p>
+<p>vscode-remote是最好的选择.</p>
+<p>但如果你的网络两小时就会挂掉, 或者你的代码可能会跑上一整天, 使用labvision.server部署将更为方便. (因为labvision就是为这种情况准备的)</p>
+<blockquote>
+<p>labvision.server和服务器的网络交互面积非常小, 仅在必要连接的时候通过ssh短暂连接, 因此不会出现类似vscode因为网络断开而卡死的情况.</p>
+<p>且所有部署的代码都在后台执行, 输出流被重定向到日志文件, 不需要终端持续连接, 你可以部署完就盖上电脑走人.</p>
+</blockquote>
+<h4 id="gpu">我没有gpu</h4>
+<p>如果你的本机没有gpu, 又碰巧需要调试, 那么请使用vscode-remote, labvision并不具备远程调试的功能.</p>
+<p>不过你也可以先用cpu调试, 改成gpu模式后再部署, 通常不会有太多bug.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tutorial_clean/" class="btn btn-neutral float-right" title="自动整理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../tutorial_autocore/" class="btn btn-neutral" title="自动训练核"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../tutorial_autocore/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../tutorial_clean/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

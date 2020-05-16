@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>自动训练核 - Labvision Wiki</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u81ea\u52a8\u8bad\u7ec3\u6838";
+    var mkdocs_page_input_path = "tutorial_autocore.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Labvision Wiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">快速入门</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quickstart</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">自动训练核</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">初始化定义</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">快速定义数据集</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">设置任意属性</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">高级参数</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">使用自动核训练</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">自定义损失函数</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">自定义读取训练集(测试集)数据</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">添加评估指标</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">自定义训练间隔</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">完整示例</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_12">探索更多的可能</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-early-stop">例1: 在自动核训练中加入early stop策略</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2">例2: 交替训练同一个(或不同)网络</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../tutorial_server/">远程服务器</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../tutorial_clean/">自动整理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Pytorch扩展支持</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">可视化扩展支持</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">总览</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.auto</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.datasets</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock.visualize</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock.local</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.dock.server</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.functional</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.transforms</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">Labvision.transforms.basic</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">关于</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">授权许可</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../na/">更新日志</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Labvision Wiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>快速入门 &raquo;</li>
+        
+      
+    
+    <li>自动训练核</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="_1">自动训练核</h2>
+<p><a href="">自动核</a>是labvision中执行训练测试的基本元素, 一个核控制一个模型以及所有围绕该模型的参数/数据集/输出/运行等信息.</p>
+<h3 id="_2">初始化定义</h3>
+<p>只需要设定一些必要的参数, 你就可以编译生成一个核.</p>
+<pre><code>from labvision import auto, datasets
+
+core = auto.Core('build/test-project')
+core.model = resnet50()
+core.set_datasets(datasets.FI, root='build/FI')
+
+core = core.compile()
+</code></pre>
+
+<blockquote>
+<p>你也可以使用:</p>
+<p><code>core = auto.Slave(core)</code></p>
+<p>来创建自定义的核 (可以用来执行并行计算或地毯式调参).</p>
+<p>core 可以定义很多东西, 请参考: <a href="">labvision.auto.Core</a></p>
+<p><em>"我用一张自动核作为祭品, 召唤实例自动核 !"</em></p>
+</blockquote>
+<h4 id="_3">快速定义数据集</h4>
+<p>labvision.auto提供了一种快速定义数据集的方式, (因为训练/测试/验证常常来自同一个数据集),
+你只需要像上述代码一样, 指定数据集的类和一些参数, 不需要实例化或分别添加参数.</p>
+<p>你也可以分别定义训练集, 验证集, 测试集:</p>
+<pre><code>core.trainset = MNIST(root='./MNIST', transform=transform, train=True)
+core.valset = MNIST(root='./MNIST', transform=transform, train=False)
+...
+</code></pre>
+
+<h4 id="_4">设置任意属性</h4>
+<p>自动核支持一切属性, 使用<code>core.push('your attribute name', a)</code> 为自动核添加属性.
+当然, 你也可以直接使用<code>core.your_attribute = a</code>设置属性, 这些属性随时可以访问或修改.</p>
+<h4 id="_5">高级参数</h4>
+<p>自动核提供了两种定义参数的方式,</p>
+<pre><code>core.trainset = torchvision.datasets.MNIST(root='./MNIST', train=True) # 正常参数
+
+core.trainset = torchvision.datasets.MNIST   # 干燥参数
+core.trainset.root = '/MNIST'
+core.trainset.train = True
+</code></pre>
+
+<p>干燥参数(Dry Args)是一个蛮好玩的实验性功能, 它可以让你创建类的时候不用立即指定参数, 哪怕是必要参数.</p>
+<p>自动核中的<code>core.model</code>, <code>core.optimizer</code>, <code>core.trainset</code>, <code>core.testset</code>, <code>core.valset</code>, <code>core.push()</code>都实装了对干燥参数的支持, 你只需要像上面的代码那样定义即可.</p>
+<p>如果你想在别的地方使用, 干燥参数也可以通过<code>my_dryarg = auto.Dry.Args(your_class)</code>创建. 只需要在真正使用的时候调用 <code>my_dryarg = my_dryarg.compile()</code>,  它就会和正常参数一样运作.</p>
+<p>此外, 干燥参数可以套娃.</p>
+<h3 id="_6">使用自动核训练</h3>
+<p>编译完成后, 使用自动核训练非常简单, 你只需要:</p>
+<pre><code>for _ in core.steps(max_epoch=30):
+    if core.epoch_finished():
+        acc = core.eval('acc')
+    if core.epoch &gt; 10:
+        torch.save(core.model.state_dict(),'build/final_model.pt')
+        break
+</code></pre>
+
+<p>这就是全部的代码了.</p>
+<h4 id="_7">自定义损失函数</h4>
+<p>labvision.auto默认装载了cross_entropy损失函数, 你可以覆盖这个函数:</p>
+<pre><code>def kldiv_loss(logits, y):
+    return torch.nn.functional.kldiv(logits, y)
+
+core.loss_function = kldiv_loss
+</code></pre>
+
+<p>其中, logits为模型输出, y为ground truth.</p>
+<h4 id="_8">自定义读取训练集(测试集)数据</h4>
+<p>同样地, 你可以覆盖<code>auto.read_batch()</code>函数:</p>
+<pre><code>def custom_read(sample):
+    x, (y1, y2) = sample
+    return Variable(x).cuda(), Variable(y1).cuda()
+
+core.read_batch = custom_read
+</code></pre>
+
+<h4 id="_9">添加评估指标</h4>
+<p>labvision.auto默认装载了accuracy, 并在不断提供更多的支持(如果我用到了的话), 一些指标可以直接通过名字指定:</p>
+<pre><code>core.eval('acc')
+core.eval('acc@top3')
+...
+</code></pre>
+
+<p>具体请移步<a href="">labvision.auto.Core</a>, 你也可以直接添加自己的评估指标:</p>
+<pre><code>core.metrics_hook('BLEU@1', your_function)
+</code></pre>
+
+<h4 id="_10">自定义训练间隔</h4>
+<p>如果需要自定义训练checkpoint的间隔 (如需要变长的interval), 你可以使用单步模式-- <code>core.step()</code>来完成任何奇怪的要求:</p>
+<pre><code>for x in [1,1,4,5,1,4]:  # 指定interval
+    core.step(iters=x)
+    print(core.status)
+</code></pre>
+
+<h3 id="_11">完整示例</h3>
+<blockquote>
+<p><em>"不存在的, 我实验都来不及做了"</em></p>
+</blockquote>
+<h3 id="_12">探索更多的可能</h3>
+<p>labvision并不是用来代替你研究者身份的, 我们鼓励你在此基础上添加合适的算法, 虽然这些算法需要你手动实现, 但在自动核的基础上, 这并不会很困难.</p>
+<h4 id="1-early-stop">例1: 在自动核训练中加入early stop策略</h4>
+<pre><code>best_acc = 0
+patience = 5
+for _ in core.steps(max_epoch=30):
+    if core.epoch_finished():
+        acc = core.eval('acc')
+        if acc &gt; best_acc:
+            best_acc = acc
+            torch.save(core.model.state_dict(),'build/best_model.pt')
+            patience = 5
+        else:
+            patience -=1
+            if patience == 0:
+                break
+</code></pre>
+
+<h4 id="2">例2: 交替训练同一个(或不同)网络</h4>
+<pre><code>turn = ['backbone', 'head']
+core1.model = core2.model = any_model()
+while True:
+    core1.step(iters=2000)
+    core2.step(iters=1000)
+    if core1.epoch + core2.epoch &gt; 100:
+        break
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tutorial_server/" class="btn btn-neutral float-right" title="远程服务器">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../quickstart/" class="btn btn-neutral" title="Quickstart"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../quickstart/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../tutorial_server/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
